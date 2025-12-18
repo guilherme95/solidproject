@@ -7,7 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Profile("jpaRepo")
 public interface JpaUsuarioRepository extends UsuarioRepository {
-
-//    @Override
-//    Optional<Usuario> findById(Long id);
 }

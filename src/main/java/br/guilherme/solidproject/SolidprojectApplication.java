@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -24,10 +25,20 @@ public class SolidprojectApplication {
 			Usuario usuarioUm = new Usuario();
 			usuarioUm.setNome("Maria Elis");
 			usuarioUm.setIdade(18);
+			usuarioUm.setEmail("maria@email.com");
+			usuarioUm.setSenha(
+					new BCryptPasswordEncoder()
+							.encode("1234")
+			);
 
 			Usuario usuarioDois = new Usuario();
 			usuarioDois.setNome("Igor Augusto");
 			usuarioDois.setIdade(19);
+			usuarioDois.setEmail("igor@email.com");
+			usuarioDois.setSenha(
+					new BCryptPasswordEncoder()
+							.encode("5678")
+			);
 
 			usuarioRepository.saveAll(
 					List.of(usuarioUm, usuarioDois)

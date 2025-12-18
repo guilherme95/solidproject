@@ -40,9 +40,12 @@ public class UsuarioController {
         );
     }
 
-    @PutMapping
-    public ResponseEntity<Void> editarUsuario(@RequestBody UsuarioRecord usuarioRecord) throws Exception {
-        usuarioModificationService.atualizarUsuario(usuarioRecord);
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Void> editarUsuario(
+            @PathVariable Long id,
+            @RequestBody UsuarioRecord usuarioRecord
+    ) throws Exception {
+        usuarioModificationService.atualizarUsuario(id, usuarioRecord);
         return ResponseEntity.status(200).build();
     }
 

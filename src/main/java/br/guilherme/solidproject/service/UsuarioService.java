@@ -36,7 +36,7 @@ public class UsuarioService implements UsuarioQueryService, UsuarioModificationS
 
     @Override
     public void criarUsuario(UsuarioRecord usuarioRecord) throws Exception {
-        usuarioValidator.validarNovoUsuario(usuarioRecord);
+        usuarioValidator.validarUsuario(usuarioRecord);
         Usuario usuario = usuarioFactory.criarUsuario(usuarioRecord);
         usuarioRepository.save(usuario);
         for (PostRegistrationAction action : postRegistrationAction) {
@@ -71,12 +71,12 @@ public class UsuarioService implements UsuarioQueryService, UsuarioModificationS
     }
 
     @Override
-    public void atualizarUsuario(UsuarioRecord usuarioRecord) throws Exception {
-        usuarioValidator.validarAtualizacaoUsuario(usuarioRecord);
-        Usuario usuario = usuarioRepository.findById(usuarioRecord.id())
+    public void atualizarUsuario(Long id, UsuarioRecord usuarioRecord) throws Exception {
+        usuarioValidator.validarUsuario(usuarioRecord);
+        Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new Exception("Usuario nao encontrado"));
         usuarioRepository.save(
-                usuarioFactory.atualizarUsuario(usuario, usuarioRecord)
+                usuarioFactory.atualizarUsuario(usuario.getId(), usuarioRecord)
         );
         loggingService.log(
                 new LoggingRecord(
